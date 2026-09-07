@@ -1,0 +1,21 @@
+cd kafka(folder name after downloading the tar file)
+$KAFKA_CLUSTER_ID = & .\bin\windows\kafka-storage.bat random-uuid
+$KAFKA_CLUSTER_ID
+configuring kafka log directories:
+.\bin\windows\kafka-storage.bat format --standalone -t $KAFKA_CLUSTER_ID -c .\config\server.properties
+starting kafka server:
+.\bin\windows\kafka-server-start.bat .\config\server.properties
+
+CREATE & DESCRIBE TOPIC:
+.\bin\windows\kafka-topics.bat --create --topic harshit-events --bootstrap-server localhost:9092
+.\bin\windows\kafka-topics.bat --describe --topic harshit-events --bootstrap-server localhost:9092 
+
+CONSUME FROM A TOPIC:
+.\bin\windows\kafka-console-consumer.bat --topic harshit-events --from-beginning --bootstrap-server localhost:9092
+
+
+SETUP KAFBAT UI:
+cd kafka
+touch .application-local.yml and write some basic configurations in this .yml file
+java -Dspring.config.additional-location=application-local.yml --add-opens java.rmi/javax.rmi.ssl=ALL-UNNAMED -jar kafbat-ui-v1.0.0.jar
+java --add-opens java.rmi/javax.rmi.ssl=ALL-UNNAMED -jar .\kafbat-ui-v1.0.0.jar --spring.config.additional-location=file:./application-local.yml
