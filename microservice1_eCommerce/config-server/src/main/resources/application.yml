@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/har5hit05/ecommerce-config-server
+          username: har5hit05
+          password: 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
+          default-label: main
+server:
+  port: 8888
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
